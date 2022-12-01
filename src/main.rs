@@ -104,8 +104,15 @@ fn quicksort<T: PartialOrd + std::fmt::Debug>(v: &mut [T]) {
         return;
     }
 
+    // Set the end of the list 
     let pivot_point = length - 1;
+    // Set the position at the start of the list
     let mut position = 0;
+
+    // For each number to the pivot point
+    // if the number is larger than the pivot point, 
+    // swap the values of the pivot and that number
+    // and increase the position
     for i in 0 .. pivot_point {
         if v[i] <= v[pivot_point] {
             v.swap(position, i);
@@ -114,7 +121,8 @@ fn quicksort<T: PartialOrd + std::fmt::Debug>(v: &mut [T]) {
     }
     v.swap(position, pivot_point);
 
-    let smaller = position; // Totally wrong – you should fix this.
+    // Assign the position value to use in the recursive call
+    let smaller = position;
 
     // Sort all the items < pivot
     quicksort(&mut v[0..smaller]);
@@ -188,31 +196,44 @@ fn merge<T: PartialOrd + std::marker::Copy + std::fmt::Debug>(xs: Vec<T>, ys: Ve
     // vector, and then push all the remaining elements from the
     // other vector onto the result.
 
-    // This is totally wrong and will not sort. You should replace it
-    // with something useful. :)
+    // Create position for the first list
     let mut i = 0;
+    // Create position for the other list
     let mut j = 0;
+
+    // Set aside a block of memory for the new list merged
     let mut output = Vec::new();
 
+    // Reapet this process while neither positions have reached the end of their list
     while i < xs.len() && j < ys.len() {
         if xs[i] < ys[j] {
+            // If the next number in the first list is smaller,
+            // move the value to the merged list and increase the position 
             output.push(xs[i]);
             i += 1;
         } else {
+            // If the next number in the second list is smaller,
+            // move the value to the merged list and increase the position
             output.push(ys[j]);
             j += 1;
         }
     }
 
+    // If there are numbers left in the first list,
+    // move them in order to the merged list
     while i < xs.len() {
         output.push(xs[i]);
         i += 1;
     }
 
+    // If there are numbers left in the second list,
+    // move them in order to the merged list
     while j < ys.len() {
         output.push(ys[j]);
         j += 1;
     }
+
+    // Return the merged list
     output
 }
 
