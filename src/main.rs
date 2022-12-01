@@ -104,11 +104,17 @@ fn quicksort<T: PartialOrd + std::fmt::Debug>(v: &mut [T]) {
         return;
     }
 
-    // Now choose a pivot and do the organizing.
-    
-    // ...
+    let pivot_point = length - 1;
+    let mut position = 0;
+    for i in 0 .. pivot_point {
+        if v[i] <= v[pivot_point] {
+            v.swap(position, i);
+            position += 1;
+        }
+    }
+    v.swap(position, pivot_point);
 
-    let smaller = 0; // Totally wrong – you should fix this.
+    let smaller = position; // Totally wrong – you should fix this.
 
     // Sort all the items < pivot
     quicksort(&mut v[0..smaller]);
